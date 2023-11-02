@@ -1,0 +1,23 @@
+{
+  "name": "bulk-url-opener",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev:firefox": "npm run build:firefox -- --watch",
+    "dev:chrome": "npm run build:chrome -- --watch",
+    "build:firefox": "tsc && vite build --mode firefox",
+    "build:chrome": "tsc && vite build --mode chrome"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.6.0",
+    "@types/node": "^20.8.10",
+    "glob": "^10.3.10",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-static-copy": "^0.17.0"
+  },
+  "dependencies": {
+    "preact": "^10.18.1"
+  }
+}

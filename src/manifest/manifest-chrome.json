@@ -1,0 +1,23 @@
+{
+  "name": "Bulk URL Opener",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "description": "Opens a list of URLs",
+  "icons": {
+    "32": "/icons/icon-32.png",
+    "128": "/icons/icon-128.png"
+  },
+  "action": {
+    "default_icon": "/icons/icon-32.png",
+    "default_popup": "index.html"
+  },
+  "commands": {
+    "_execute_action": {
+      "default": "CTRL+M"
+    }
+  },
+  "permissions": [
+    "storage"
+  ],
+  "incognito": "split"
+}
