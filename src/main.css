@@ -1,0 +1,73 @@
+/* Default variables for light theme */
+:root {
+  --primary-color: #80A2E7;
+  --background-color: #eeeeee;
+  --text-color: #111111;
+  --border-color: #cccccc;
+}
+
+/* Override variables for dark theme */
+[data-theme="dark"] {
+  --background-color: #111111;
+  --text-color: #eeeeee;
+  --border-color: #333333;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: monospace;
+  background: var(--background-color);
+  color: var(--text-color);
+  font-size: 13px;
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.container {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  & li {
+    display: block;
+    width: 100%;
+  }
+  & a {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px -1px 0px 0px var(--border-color) inset;
+    transition: all 0.25s ease-out;
+    &:hover {
+      color: var(--primary-color);
+    }
+    &.active {
+      color: var(--primary-color);
+      box-shadow: 0px -3px 0px 0px var(--primary-color) inset;
+    }
+    & svg {
+      display: block;
+      width: 16px;
+      height: 16px;
+      margin-right: 7px;
+      transition: all 0.25s ease-out;
+    }
+  }
+}
+
+.view {
+  padding: 10px;
+}

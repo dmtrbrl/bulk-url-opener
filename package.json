@@ -7,17 +7,22 @@
     "dev:firefox": "npm run build:firefox -- --watch",
     "dev:chrome": "npm run build:chrome -- --watch",
     "build:firefox": "tsc && vite build --mode firefox",
-    "build:chrome": "tsc && vite build --mode chrome"
+    "build:chrome": "tsc && vite build --mode chrome",
+    "lint": "eslint \"src/**/*.ts\""
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.6.0",
     "@types/node": "^20.8.10",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard-with-typescript": "^39.1.1",
+    "eslint-plugin-import": "^2.29.0",
     "glob": "^10.3.10",
-    "typescript": "^5.0.2",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2",
     "vite": "^4.4.5",
+    "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-static-copy": "^0.17.0"
-  },
-  "dependencies": {
-    "preact": "^10.18.1"
   }
 }

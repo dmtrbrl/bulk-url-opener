@@ -9,12 +9,7 @@
   },
   "action": {
     "default_icon": "/icons/icon-32.png",
-    "default_popup": "index.html"
-  },
-  "commands": {
-    "_execute_action": {
-      "default": "CTRL+M"
-    }
+    "default_popup": "app.html"
   },
   "permissions": [
     "storage"
