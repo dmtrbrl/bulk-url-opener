@@ -1,10 +1,13 @@
 import { themeService } from "./services/theme";
 import { type Routes, routerService } from "./services/router";
+import "./components/view-open-urls";
+import "./components/view-history";
+import "./components/view-settings";
 
 const routes: Routes = {
-  "#": "<strong>Open URLs content</strong>",
-  "#lists": "<strong>Lists content</strong>",
-  "#settings": "<strong>Settings content</strong>",
+  "#": `<view-open-urls />`,
+  "#history": "<view-history />",
+  "#settings": "<view-settings />",
 };
 
 window.addEventListener("DOMContentLoaded", () => {

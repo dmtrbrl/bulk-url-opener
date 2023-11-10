@@ -24,5 +24,8 @@
     "vite": "^4.4.5",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-static-copy": "^0.17.0"
+  },
+  "dependencies": {
+    "lit": "^3.0.2"
   }
 }
