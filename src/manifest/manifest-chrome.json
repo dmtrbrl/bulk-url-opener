@@ -12,7 +12,8 @@
     "default_popup": "app.html"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "tabs"
   ],
   "incognito": "split"
 }

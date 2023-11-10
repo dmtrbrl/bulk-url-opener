@@ -1,5 +1,6 @@
 import { LitElement, html, css } from "lit";
 import { customElement } from "lit/decorators.js";
+import { openUrlInBrowser } from "../services/open-urls";
 
 const style = css`
   .open-urls-form {
@@ -15,7 +16,7 @@ const style = css`
       border-color: var(--border-color);
       line-height: 17px;
       font-size: 13px;
-      padding: 10px;
+      padding: 10px 10px 30px;
       color: var(--text-color);
       resize: none;
       height: 100%;
@@ -31,20 +32,28 @@ const style = css`
         background: var(--focus-color);
       }
     }
+    & textarea,
+    & button {
+      &:focus-visible {
+        outline: 2px solid var(--primary-color);
+        outline-offset: -2px;
+      }
+    }
   }
 `;
 
 @customElement("view-open-urls")
 export class ViewOpenUrls extends LitElement {
-  static styles = style;
+  static style = style;
   private handleSubmit = (e: SubmitEvent): void => {
     e.preventDefault();
-    alert("submit");
+    openUrlInBrowser("https://google.com");
   };
   protected render() {
     return html`
+      <style></style>
       <form @submit="${this.handleSubmit}" class="open-urls-form">
-        <textarea placeholder="List of URLs / Text to extract URLs from"></textarea>
+        <textarea placeholder="Type the list of URLs"></textarea>
         <button type="submit">Open URLs</button>
       </form>
     `;
