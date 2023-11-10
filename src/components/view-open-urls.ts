@@ -2,7 +2,7 @@ import { LitElement, html, css } from "lit";
 import { customElement } from "lit/decorators.js";
 import { openUrlInBrowser } from "../services/open-urls";
 
-const style = css`
+const styles = css`
   .open-urls-form {
     display: flex;
     height: 100%;
@@ -44,14 +44,13 @@ const style = css`
 
 @customElement("view-open-urls")
 export class ViewOpenUrls extends LitElement {
-  static style = style;
+  static styles = styles;
   private handleSubmit = (e: SubmitEvent): void => {
     e.preventDefault();
     openUrlInBrowser("https://google.com");
   };
   protected render() {
     return html`
-      <style></style>
       <form @submit="${this.handleSubmit}" class="open-urls-form">
         <textarea placeholder="Type the list of URLs"></textarea>
         <button type="submit">Open URLs</button>
