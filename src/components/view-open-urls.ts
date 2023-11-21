@@ -48,7 +48,7 @@ export class ViewOpenUrls extends LitElement {
   static styles = styles;
   private handleSubmit = (e: SubmitEvent): void => {
     e.preventDefault();
-    openUrlInBrowser("https://google.com");
+    openUrlInBrowser("https://google.com", true);
   };
   protected render() {
     return html`
