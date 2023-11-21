@@ -1,16 +1,18 @@
 /* Default variables for light theme */
 :root {
   --primary-color: #7392d0;
-  --background-color: #eeeeee;
-  --text-color: #111111;
+  --light-color: #eeeeee;
+  --dark-color: #111111;
+  --background-color: var(--light-color);
+  --text-color: var(--dark-color);
   --focus-color: #dddddd;
   --border-color: #cccccc;
 }
 
 /* Override variables for dark theme */
 [data-theme="dark"] {
-  --background-color: #111111;
-  --text-color: #eeeeee;
+  --background-color: var(--dark-color);
+  --text-color: var(--light-color);
   --border-color: #333333;
   --focus-color: #666666;
 }
@@ -66,12 +68,12 @@ a {
       color: var(--primary-color);
     }
     &:focus-visible {
-      outline: 3px solid var(--primary-color);
-      outline-offset: -3px;
+      outline: 2px solid var(--primary-color);
+      outline-offset: -2px;
     }
     &.active {
       color: var(--primary-color);
-      box-shadow: 0px -3px 0px 0px var(--primary-color) inset;
+      box-shadow: 0px -2px 0px 0px var(--primary-color) inset;
     }
     & svg {
       fill: currentColor;

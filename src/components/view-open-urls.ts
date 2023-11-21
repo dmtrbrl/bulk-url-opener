@@ -28,6 +28,7 @@ const styles = css`
       margin-top: 10px;
       height: 40px;
       cursor: pointer;
+      transition: background-color 0.25s ease-in;
       &:hover {
         background: var(--focus-color);
       }

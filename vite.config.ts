@@ -29,5 +29,11 @@ export default defineConfig(({ mode }) => {
         ],
       }),
     ],
+    define: {
+      APP_VERSION: JSON.stringify(process.env.npm_package_version),
+    },
+    test: {
+      environment: "happy-dom",
+    },
   };
 });
