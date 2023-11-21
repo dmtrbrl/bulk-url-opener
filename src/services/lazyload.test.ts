@@ -17,7 +17,7 @@ describe("LazyLoadService", () => {
   });
 
   it("should set title and redirect on focus", () => {
-    expect(document.title).toBe("[github.com]");
+    expect(document.title).toBe("github.com");
     expect(window.location.replace).toHaveBeenCalledTimes(0);
 
     window.dispatchEvent(new Event("focus"));

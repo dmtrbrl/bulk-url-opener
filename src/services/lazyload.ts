@@ -20,7 +20,7 @@ export class LazyLoadService {
    */
   private updateDocumentTitle = (url: string): void => {
     const titleUrl = url.replace(/^https?:\/\//, "");
-    document.title = `[${titleUrl}]`;
+    document.title = titleUrl;
   };
 
   /**
