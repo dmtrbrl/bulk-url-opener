@@ -9,19 +9,33 @@ export class OpenUrlsService {
   private urls: string[] = [];
 
   /**
-   * Sets the list of URLs from a newline-separated string.
-   * @param urls - A string containing a list of URLs, each separated by a newline.
-   */
-  public setUrls(urls: string): void {
-    this.urls = urls.split("\n").filter((url) => url.trim() !== "");
-  }
-
-  /**
    * Gets the current list of URLs as a single string, suitable for display in a textarea.
    * @returns A string containing all URLs separated by newlines.
    */
   public getUrls(): string {
     return this.urls.join("\n");
+  }
+
+  /**
+   * Gets the current list of URLs as an array.
+   * @returns An array of URLs.
+   */
+  public getUrlsArray(): string[] {
+    return this.urls;
+  }
+
+  /**
+   * Sets the list of URLs from either a newline-separated string or an array of URLs.
+   * @param urls - A string containing a list of URLs, each separated by a newline, or an array of URLs.
+   */
+  public setUrls(urls: string | string[]): void {
+    if (Array.isArray(urls)) {
+      // If 'urls' is an array, filter out any empty strings
+      this.urls = urls.filter((url) => url.trim() !== "");
+    } else {
+      // If 'urls' is a string, split it by newlines and filter out any empty strings
+      this.urls = urls.split("\n").filter((url) => url.trim() !== "");
+    }
   }
 
   /**
@@ -35,6 +49,8 @@ export class OpenUrlsService {
     urlList.forEach((url) => {
       this.openUrlInBrowser(url, lazy);
     });
+
+    window.close();
   }
 
   /**

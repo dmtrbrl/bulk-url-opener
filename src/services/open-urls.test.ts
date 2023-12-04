@@ -18,20 +18,28 @@ describe("OpenUrlsService", () => {
   });
 
   it("should set and get URLs correctly", () => {
-    const testUrls = "https://example.com\nhttps://example.org";
-    openUrlsService.setUrls(testUrls);
-    expect(openUrlsService.getUrls()).toBe(testUrls);
+    const testUrlsString = "https://example.com\nhttps://example.org";
+    const testUrlsArray = ["https://example.com", "https://example.org"];
+    openUrlsService.setUrls(testUrlsString);
+    expect(openUrlsService.getUrls()).toBe(testUrlsString);
+    expect(openUrlsService.getUrlsArray()).toEqual(testUrlsArray);
+    openUrlsService.setUrls(testUrlsArray);
+    expect(openUrlsService.getUrls()).toBe(testUrlsString);
+    expect(openUrlsService.getUrlsArray()).toEqual(testUrlsArray);
   });
 
   it("should remove empty lines when setting URLs", () => {
-    const testUrls = "https://example.com\n\nhttps://example.org\n\n";
+    const testUrlsString = "https://example.com\n\nhttps://example.org\n\n";
+    const testUrlsArray = ["https://example.com", "", "https://example.org", ""];
     const expectedUrls = "https://example.com\nhttps://example.org";
-    openUrlsService.setUrls(testUrls);
+    openUrlsService.setUrls(testUrlsString);
+    expect(openUrlsService.getUrls()).toBe(expectedUrls);
+    openUrlsService.setUrls(testUrlsArray);
     expect(openUrlsService.getUrls()).toBe(expectedUrls);
   });
 
   it("should open URLs correctly", () => {
-    openUrlsService.setUrls("https://example.com\nhttps://example.org");
+    openUrlsService.setUrls(["https://example.com", "https://example.org"]);
     openUrlsService.openUrls();
 
     expect(openUrlInBrowserSpy).toHaveBeenCalledTimes(2);
@@ -40,7 +48,7 @@ describe("OpenUrlsService", () => {
   });
 
   it("should open URLs lazily when lazy flag is true", () => {
-    openUrlsService.setUrls("https://example.com\nhttps://example.org");
+    openUrlsService.setUrls(["https://example.com", "https://example.org"]);
     openUrlsService.openUrls(true);
 
     expect(openUrlInBrowserSpy).toHaveBeenCalledTimes(2);

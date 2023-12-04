@@ -1,71 +1,49 @@
-import { LitElement, html, css } from "lit";
-import { customElement } from "lit/decorators.js";
+// view-open-urls.ts
+import { LitElement, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
 import { openUrlsService } from "../services/open-urls";
 import { settingsService } from "../services/settings";
-
-const styles = css`
-  .open-urls-form {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    & textarea {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-      resize: none;
-      background: transparent;
-      border-color: var(--border-color);
-      line-height: 17px;
-      font-size: 13px;
-      padding: 10px 10px 30px;
-      color: var(--text-color);
-      resize: none;
-      height: 100%;
-    }
-    & button {
-      border: 0;
-      color: var(--text-color);
-      background: var(--border-color);
-      margin-top: 10px;
-      height: 40px;
-      cursor: pointer;
-      transition: background-color 0.25s ease-in;
-      &:hover {
-        background: var(--focus-color);
-      }
-    }
-    & textarea,
-    & button {
-      &:focus-visible {
-        outline: 2px solid var(--primary-color);
-        outline-offset: -2px;
-      }
-    }
-  }
-`;
+import { historyService } from "../services/history";
+import { styles } from "./view-open-urls-styles";
 
 @customElement("view-open-urls")
 export class ViewOpenUrls extends LitElement {
   static styles = styles;
+
+  @property({ type: String })
+  private urls = openUrlsService.getUrls();
+
+  // Handle input change event
   private handleChange = (e: InputEvent): void => {
-    e.preventDefault();
     const { value } = e.target as HTMLInputElement;
     openUrlsService.setUrls(value);
+    this.urls = value;
+    this.requestUpdate();
   };
+
+  // Handle form submission
   private handleSubmit = (e: SubmitEvent): void => {
     e.preventDefault();
     openUrlsService.openUrls(settingsService.getLazyload(), settingsService.getRandomOrder());
+    historyService.pushToHistory(openUrlsService.getUrlsArray());
   };
-  protected render() {
+
+  // Render the form
+  private renderForm() {
+    const isButtonDisabled = !this.urls.trim();
+    const urlsAmount = openUrlsService.getUrlsArray().length;
+    const buttonText = `Open ${urlsAmount > 0 ? (urlsAmount === 1 ? "1 URL" : `${urlsAmount} URLs`) : "URLs"}`;
+
     return html`
       <form @submit="${this.handleSubmit}" class="open-urls-form">
-        <textarea
-          placeholder="Type the list of URLs"
-          .value=${openUrlsService.getUrls()}
-          @change=${this.handleChange}
-        ></textarea>
-        <button type="submit">Open URLs</button>
+        <textarea placeholder="Enter each URL on a new line" .value=${this.urls} @input=${this.handleChange}></textarea>
+        <button type="submit" ?disabled=${isButtonDisabled}>${buttonText}</button>
       </form>
     `;
+  }
+
+  // Main render method
+  protected render() {
+    return this.renderForm();
   }
 }

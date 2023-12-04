@@ -1,155 +1,11 @@
-import { LitElement, css, html } from "lit";
-import { customElement } from "lit/decorators.js";
+import { LitElement, TemplateResult, html } from "lit";
+import { customElement, property } from "lit/decorators.js";
+import { repeat } from "lit/directives/repeat.js";
 import { ThemeType, settingsService } from "../services/settings";
 import icons from "../assets/icons.svg";
-
-const styles = css`
-  .settings {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  .settings-list {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-  .settings-list-item {
-    width: 100%;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border-color);
-    &:first-child {
-      padding-top: 0;
-    }
-  }
-  .settings-footer {
-    margin-top: auto;
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 5px;
-  }
-  .settings-footer-version {
-    opacity: 0.6;
-    cursor: default;
-  }
-  .settings-footer-links {
-    display: flex;
-    & a {
-      display: flex;
-      align-items: center;
-      margin-left: 20px;
-      color: var(--text-color);
-      text-decoration: none;
-      opacity: 0.6;
-      transition: all 0.25s ease-in;
-      &:hover {
-        opacity: 1;
-      }
-      &:focus-visible {
-        outline: 2px solid var(--primary-color);
-        outline-offset: 2px;
-      }
-      & svg {
-        display: block;
-        width: 16px;
-        height: 16px;
-        fill: currentColor;
-        margin-right: 7px;
-      }
-    }
-  }
-  .switch {
-    appearance: none;
-    display: block;
-    position: relative;
-    cursor: pointer;
-    width: 38px;
-    height: 22px;
-    border: 2px solid var(--border-color);
-    background: var(--border-color);
-    border-radius: 12px;
-    transition: all 0.1s ease-out;
-    margin: 0;
-    &::after {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 18px;
-      height: 18px;
-      background: var(--light-color);
-      border-radius: 9px;
-      opacity: 0.7;
-      transition: all 0.1s ease-out;
-    }
-    &:focus-visible {
-      outline: 2px solid var(--primary-color);
-      outline-offset: -2px;
-    }
-    &:checked {
-      background: var(--primary-color);
-      border-color: var(--primary-color);
-      &::after {
-        transform: translateX(16px);
-        opacity: 1;
-      }
-      &:focus-visible {
-        outline-color: var(--border-color);
-      }
-    }
-  }
-  .radio-group {
-    display: flex;
-    & label {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      margin-left: 15px;
-    }
-    & input {
-      appearance: none;
-      display: block;
-      position: relative;
-      width: 18px;
-      height: 18px;
-      border-radius: 9px;
-      background: var(--border-color);
-      margin: 0 5px 0 0;
-      cursor: pointer;
-      transition: all 0.1s ease-out;
-      &::after {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 4px;
-        left: 4px;
-        width: 10px;
-        height: 10px;
-        background: transparent;
-        border-radius: 5px;
-        transition: all 0.1s ease-out;
-      }
-      &:focus-visible {
-        outline: 2px solid var(--primary-color);
-        outline-offset: -2px;
-      }
-      &:checked {
-        background: var(--primary-color);
-        &::after {
-          background: var(--light-color);
-        }
-        &:focus-visible {
-          outline-color: var(--border-color);
-        }
-      }
-    }
-  }
-`;
+import { historyService } from "../services/history";
+import { ref, createRef, Ref } from "lit/directives/ref.js";
+import { styles } from "./view-settings-styles";
 
 const appearanceOptions: { label: string; value: ThemeType }[] = [
   {
@@ -169,70 +25,127 @@ const appearanceOptions: { label: string; value: ThemeType }[] = [
 @customElement("view-settings")
 export class ViewSettings extends LitElement {
   static styles = styles;
-  private handleThemeChange = (e: InputEvent) => {
-    const target = e.target as HTMLInputElement;
-    const theme = target.value as ThemeType;
+
+  @property({ type: Boolean }) private lazyLoad = settingsService.getLazyload();
+  @property({ type: Boolean }) private randomOrder = settingsService.getRandomOrder();
+  @property({ type: String }) private theme = settingsService.getTheme();
+
+  private clearHistoryButtonRef: Ref<HTMLButtonElement> = createRef();
+  private clearHistoryConfirmRef: Ref<HTMLDialogElement> = createRef();
+
+  private handleThemeChange(theme: ThemeType) {
+    this.theme = theme;
     settingsService.setTheme(theme);
-  };
+  }
+
+  private toggleSetting(setting: "lazyLoad" | "randomOrder") {
+    const newValue = !this[setting];
+    this[setting] = newValue;
+
+    if (setting === "lazyLoad") {
+      settingsService.setLazyload(newValue);
+    } else if (setting === "randomOrder") {
+      settingsService.setRandomOrder(newValue);
+    }
+  }
+
+  private clearHistory(confirmed: boolean = false) {
+    this.clearHistoryConfirmRef.value!.close();
+    if (!confirmed) return;
+    historyService.clearHistory();
+    this.clearHistoryButtonRef.value!.disabled = true;
+  }
+
   protected render() {
     return html`
       <section class="settings">
         <ul class="settings-list">
-          <li class="settings-list-item">
-            <span>Load tabs only when they are selected</span>
-            <input
-              class="switch"
-              type="checkbox"
-              ?checked=${settingsService.getLazyload()}
-              @change=${() => settingsService.setLazyload(!settingsService.getLazyload())}
-            />
-          </li>
-          <li class="settings-list-item">
-            <span>Load tabs in random order</span>
-            <input
-              class="switch"
-              type="checkbox"
-              ?checked=${settingsService.getRandomOrder()}
-              @change=${() => settingsService.setRandomOrder(!settingsService.getRandomOrder())}
-            />
-          </li>
-          <li class="settings-list-item">
-            <span>Appearance</span>
-            <div class="radio-group">
-              ${appearanceOptions.map(
-                (a) =>
-                  html`<label>
-                    <input
-                      type="radio"
-                      name="appearance"
-                      .value=${a.value}
-                      ?checked=${a.value === settingsService.getTheme()}
-                      @change="${this.handleThemeChange}"
-                    />
-                    <span>${a.label}</span>
-                  </label>`,
-              )}
-            </div>
-          </li>
+          ${this.renderSettingsItem(
+            "Load tabs only when they are selected",
+            this.renderSwitch("lazyLoad", this.lazyLoad),
+          )}
+          ${this.renderSettingsItem("Load tabs in random order", this.renderSwitch("randomOrder", this.randomOrder))}
+          ${this.renderSettingsItem("Appearance", this.renderAppearanceOptions())}
+          ${this.renderSettingsItem("History", this.renderClearHistoryButton())}
         </ul>
-        <footer class="settings-footer">
-          <span class="settings-footer-version">Version: ${APP_VERSION}</span>
-          <div class="settings-footer-links">
-            <a href="https://github.com/dmtrbrl/bulk-url-opener" target="_blank">
-              <svg>
-                <use href="${icons}#github" />
-              </svg>
-              Github
-            </a>
-            <a href="https://github.com/dmtrbrl/bulk-url-opener/issues" target="_blank">
-              <svg>
-                <use href="${icons}#reportIssue" />
-              </svg>
-              Report an issue
-            </a>
-          </div>
-        </footer>
+        ${this.renderFooter()}
       </section>
+    `;
+  }
+
+  private renderSettingsItem(label: string, control: TemplateResult) {
+    return html`
+      <li class="settings-list-item">
+        <span>${label}</span>
+        ${control}
+      </li>
+    `;
+  }
+
+  private renderSwitch(setting: "lazyLoad" | "randomOrder", checked: boolean) {
+    return html`
+      <input class="switch" type="checkbox" ?checked=${checked} @change=${() => this.toggleSetting(setting)} />
+    `;
+  }
+
+  private renderAppearanceOptions() {
+    return html`
+      <div class="radio-group">
+        ${repeat(
+          appearanceOptions,
+          (option) =>
+            html`<label>
+              <input
+                type="radio"
+                name="appearance"
+                .value=${option.value}
+                ?checked=${option.value === this.theme}
+                @change=${() => this.handleThemeChange(option.value)}
+              />
+              <span>${option.label}</span>
+            </label>`,
+        )}
+      </div>
+    `;
+  }
+
+  private renderClearHistoryButton() {
+    return html`
+      <button
+        ${ref(this.clearHistoryButtonRef)}
+        ?disabled=${!historyService.getHistory().length}
+        @click=${() => this.clearHistoryConfirmRef.value!.showModal()}
+      >
+        Clear history
+      </button>
+      <dialog ${ref(this.clearHistoryConfirmRef)}>
+        <p>
+          Please confirm: Do you really want to clear all your browsing history? This action cannot be undone and all
+          saved history will be permanently removed.
+        </p>
+        <footer>
+          <button @click=${() => this.clearHistory(false)}>Cancel</button>
+          <button @click=${() => this.clearHistory(true)}>Confirm</button>
+        </footer>
+      </dialog>
+    `;
+  }
+
+  private renderFooter() {
+    return html`
+      <footer class="settings-footer">
+        <span class="settings-footer-version">Version: ${APP_VERSION}</span>
+        <div class="settings-footer-links">
+          <a href="https://github.com/dmtrbrl/bulk-url-opener" target="_blank">
+            <svg><use href="${icons}#github" /></svg>
+            Github
+          </a>
+          <a href="https://github.com/dmtrbrl/bulk-url-opener/issues" target="_blank">
+            <svg><use href="${icons}#reportIssue" /></svg>
+            Report an issue
+          </a>
+        </div>
+      </footer>
     `;
   }
 }
