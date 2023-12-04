@@ -42,7 +42,12 @@ export const styles = css`
       & footer {
         padding: 10px;
         border-top: 1px solid var(--border-color);
-        & a {
+        & button {
+          appearance: none;
+          border: 0;
+          padding: 0;
+          background: transparent;
+          color: var(--text-color);
           cursor: pointer;
           display: inline-flex;
           gap: 5px;

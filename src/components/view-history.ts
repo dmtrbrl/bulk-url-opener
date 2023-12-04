@@ -34,10 +34,10 @@ export class History extends LitElement {
                     ${item.urls.map((url) => html`<li>${url}</li>`)}
                   </ul>
                   <footer>
-                    <a role="button" tabindex="0" @click=${() => this.openUrlsAgain(item.urls)}>
+                    <button @click=${() => this.openUrlsAgain(item.urls)}>
                       <svg><use href="${icons}#urls" /></svg>
                       Open again
-                    </a>
+                    </button>
                   </footer>
                 </details>
               `;
