@@ -1,6 +1,6 @@
+import { glob } from "glob";
 import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import { glob } from "glob";
 import * as path from "path";
 import { fileURLToPath } from "url";
 
@@ -20,7 +20,6 @@ export default defineConfig(({ mode }) => {
         { find: "@", replacement: fileURLToPath(new URL("./src", import.meta.url)) },
         { find: "@assets", replacement: fileURLToPath(new URL("./src/assets", import.meta.url)) },
         { find: "@components", replacement: fileURLToPath(new URL("./src/components", import.meta.url)) },
-        { find: "@mocks", replacement: fileURLToPath(new URL("./src/mocks", import.meta.url)) },
         { find: "@services", replacement: fileURLToPath(new URL("./src/services", import.meta.url)) },
       ],
     },

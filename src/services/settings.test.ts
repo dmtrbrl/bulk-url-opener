@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { SettingsService } from "./settings";
-import localStorageMock from "@mocks/localStorageMock";
+import localStorageMock from "../mocks/localStorageMock";
 
 // Mock document.body.setAttribute
 document.body.setAttribute = vi.fn();

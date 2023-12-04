@@ -1,8 +1,8 @@
-import { type Routes, routerService } from "./services/router";
-import "./components/view-open-urls";
-import "./components/view-history";
-import "./components/view-settings";
-import { settingsService } from "./services/settings";
+import { type Routes, routerService } from "@services/router";
+import { settingsService } from "@services/settings";
+import "@components/view-history";
+import "@components/view-settings";
+import "@components/view-open-urls";
 
 const routes: Routes = {
   "#": `view-open-urls`,
