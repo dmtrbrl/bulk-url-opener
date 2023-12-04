@@ -1,9 +1,9 @@
 import { LitElement, TemplateResult, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
-import { ThemeType, settingsService } from "../services/settings";
-import icons from "../assets/icons.svg";
-import { historyService } from "../services/history";
+import { ThemeType, settingsService } from "@services/settings";
+import icons from "@assets/icons.svg";
+import { historyService } from "@services/history";
 import { ref, createRef, Ref } from "lit/directives/ref.js";
 import { styles } from "./view-settings-styles";
 

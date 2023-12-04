@@ -1,9 +1,9 @@
 // view-open-urls.ts
 import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { openUrlsService } from "../services/open-urls";
-import { settingsService } from "../services/settings";
-import { historyService } from "../services/history";
+import { openUrlsService } from "@services/open-urls";
+import { settingsService } from "@services/settings";
+import { historyService } from "@services/history";
 import { styles } from "./view-open-urls-styles";
 
 @customElement("view-open-urls")

@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { glob } from "glob";
 import * as path from "path";
+import { fileURLToPath } from "url";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -13,6 +14,15 @@ export default defineConfig(({ mode }) => {
       },
       emptyOutDir: true,
       outDir: path.resolve(__dirname, `dist-${mode}`),
+    },
+    resolve: {
+      alias: [
+        { find: "@", replacement: fileURLToPath(new URL("./src", import.meta.url)) },
+        { find: "@assets", replacement: fileURLToPath(new URL("./src/assets", import.meta.url)) },
+        { find: "@components", replacement: fileURLToPath(new URL("./src/components", import.meta.url)) },
+        { find: "@mocks", replacement: fileURLToPath(new URL("./src/mocks", import.meta.url)) },
+        { find: "@services", replacement: fileURLToPath(new URL("./src/services", import.meta.url)) },
+      ],
     },
     plugins: [
       viteStaticCopy({

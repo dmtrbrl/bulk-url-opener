@@ -1,10 +1,10 @@
 import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
-import { historyService } from "../services/history";
+import { historyService } from "@services/history";
 import { repeat } from "lit/directives/repeat.js";
-import icons from "../assets/icons.svg";
-import { openUrlsService } from "../services/open-urls";
-import { settingsService } from "../services/settings";
+import icons from "@assets/icons.svg";
+import { openUrlsService } from "@services/open-urls";
+import { settingsService } from "@services/settings";
 import { styles } from "./view-history-styles";
 
 @customElement("view-history")
