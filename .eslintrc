@@ -25,7 +25,7 @@
     "import/order": [
       1,
       {
-        "groups": ["external", "builtin", "internal", "sibling", "parent", "index"],
+        "groups": ["external", "builtin", "internal"],
         "pathGroups": [
           {
             "pattern": "@services/**",
@@ -42,6 +42,7 @@
             "position": "after"
           }
         ],
+        "newlines-between": "always",
         "alphabetize": {
           "order": "asc",
           "caseInsensitive": true

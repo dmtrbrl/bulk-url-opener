@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+
 import { OpenUrlsService } from "./open-urls";
 
 describe("OpenUrlsService", () => {

@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from "vitest";
+
 import { HistoryService } from "./history";
 import localStorageMock from "../mocks/localStorageMock";
 

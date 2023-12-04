@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+
 import { SettingsService } from "./settings";
 import localStorageMock from "../mocks/localStorageMock";
 

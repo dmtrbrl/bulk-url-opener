@@ -1,4 +1,5 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
+
 import { lazyLoadService } from "./lazyload";
 
 const url = `https://github.com`;
