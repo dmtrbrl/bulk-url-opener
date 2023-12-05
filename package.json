@@ -9,7 +9,8 @@
     "build:firefox": "tsc && vite build --mode firefox",
     "build:chrome": "tsc && vite build --mode chrome",
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "vitest"
+    "test": "vitest",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.251",
@@ -28,9 +29,15 @@
     "vite": "^4.4.5",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-static-copy": "^0.17.0",
-    "vitest": "^0.34.6"
+    "vitest": "^0.34.6",
+    "husky": "^8.0.0"
   },
   "dependencies": {
     "lit": "^3.0.2"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "eslint --max-warnings=0"
+    ]
   }
 }
