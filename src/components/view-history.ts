@@ -2,9 +2,10 @@ import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 
-import { historyService } from "@services/history";
+
 import { openUrlsService } from "@services/open-urls";
 import { settingsService } from "@services/settings";
+import { historyService } from "@services/history";
 
 import icons from "@assets/icons.svg";
 
