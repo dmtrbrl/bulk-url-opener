@@ -5,6 +5,7 @@ import { OpenUrlsService } from "./open-urls";
 describe("OpenUrlsService", () => {
   let openUrlsService: OpenUrlsService;
   let openUrlInBrowserSpy: unknown;
+  let windowCloseSpy: unknown;
 
   beforeEach(() => {
     openUrlsService = new OpenUrlsService();
@@ -12,6 +13,7 @@ describe("OpenUrlsService", () => {
       openUrlsService as unknown as { openUrlInBrowser: (url: string, lazy: boolean) => void },
       "openUrlInBrowser",
     );
+    windowCloseSpy = vi.spyOn(window, "close").mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -46,6 +48,7 @@ describe("OpenUrlsService", () => {
     expect(openUrlInBrowserSpy).toHaveBeenCalledTimes(2);
     expect(openUrlInBrowserSpy).toHaveBeenCalledWith("https://example.com", false);
     expect(openUrlInBrowserSpy).toHaveBeenCalledWith("https://example.org", false);
+    expect(windowCloseSpy).toHaveBeenCalled();
   });
 
   it("should open URLs lazily when lazy flag is true", () => {
@@ -55,5 +58,6 @@ describe("OpenUrlsService", () => {
     expect(openUrlInBrowserSpy).toHaveBeenCalledTimes(2);
     expect(openUrlInBrowserSpy).toHaveBeenCalledWith("https://example.com", true);
     expect(openUrlInBrowserSpy).toHaveBeenCalledWith("https://example.org", true);
+    expect(windowCloseSpy).toHaveBeenCalled();
   });
 });
