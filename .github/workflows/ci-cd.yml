@@ -1,0 +1,62 @@
+name: CI/CD
+
+on: 
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build-chrome:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: Install Dependencies
+      run: npm install
+    - name: Build
+      run: npm run build:chrome
+
+  build-firefox:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: Install Dependencies
+      run: npm install
+    - name: Build
+      run: npm run build:firefox
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: build-chrome
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: Install Dependencies
+      run: npm install
+    - name: Lint
+      run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build-chrome
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: Install Dependencies
+      run: npm install
+    - name: Test
+      run: npm run test
