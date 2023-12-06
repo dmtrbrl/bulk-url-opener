@@ -3,16 +3,15 @@
   "version": "1.0.0",
   "manifest_version": 3,
   "description": "Opens a list of URLs",
+  "homepage_url": "https://github.com/dmtrbrl/bulk-url-opener",
   "icons": {
-    "32": "/icons/icon-32.png",
+    "16": "/icons/icon-16.png",
+    "48": "/icons/icon-48.png",
     "128": "/icons/icon-128.png"
   },
-  "action": {
+  "browser_action": {
     "default_icon": "/icons/icon-32.png",
     "default_popup": "app.html"
   },
-  "permissions": [
-    "storage",
-    "tabs"
-  ]
+  "incognito": "spanning"
 }

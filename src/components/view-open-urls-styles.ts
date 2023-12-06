@@ -11,14 +11,15 @@ export const styles = css`
       box-sizing: border-box;
       resize: none;
       background: transparent;
-      border-color: var(--border-color);
+      border: 1px solid var(--border-color);
       line-height: 17px;
       font-size: 13px;
       padding: 10px 10px 30px;
       color: var(--text-color);
       resize: none;
       height: 100%;
-      white-space: nowrap;
+      white-space: pre;
+      overflow: auto;
     }
     & button {
       border: 0;
