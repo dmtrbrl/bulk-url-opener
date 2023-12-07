@@ -1,6 +1,6 @@
 # Bulk URL Opener
 
-![image](https://github.com/dmtrbrl/bulk-url-opener/assets/7405155/45768715-1335-41e1-9aec-2aa751a3e746)
+![01](https://github.com/dmtrbrl/bulk-url-opener/assets/7405155/2f6ab091-fdb5-437c-9fbb-bd10b0d12fa5)
 
 The Bulk URL Opener is a web extension that makes your online life a bit easier. It's perfect for anyone who needs to open a bunch of links at the same time.
 
