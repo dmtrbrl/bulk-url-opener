@@ -22,4 +22,6 @@ Here are the features:
    
    • Random Order: Randomizes the order of opening your links, great for when you need a random sequence.
 
+   • Appearance: Choose between a light or dark theme for the extension, or set it to 'auto' to match your system's theme. This makes the extension more comfortable to use and fits your personal style.
+
 In short, the Bulk URL Opener is a simple, user-friendly extension that's all about making your browsing a bit more convenient and a little less cluttered.
