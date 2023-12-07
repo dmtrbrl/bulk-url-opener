@@ -25,3 +25,21 @@ Here are the features:
    • Appearance: Choose between a light or dark theme for the extension, or set it to 'auto' to match your system's theme. This makes the extension more comfortable to use and fits your personal style.
 
 In short, the Bulk URL Opener is a simple, user-friendly extension that's all about making your browsing a bit more convenient and a little less cluttered.
+
+## Development
+
+First: Execute the package installation with `npm install`.
+
+Next, proceed with one of these build commands:
+
+| Command                   | Description                         | Output dir                      |
+|:--------------------------|:------------------------------------|:--------------------------------|
+| `npm run dev:firefox`     | real-time build (watch mode) for Firefox | `dist-firefox`             |
+| `npm run dev:chrome`      | real-time build (watch mode) for Chrome  | `dist-chrome`              |
+| `npm run build:firefox`   | production build for Firefox        | `dist-firefox`                  |
+| `npm run build:chrome`    | production build for Chrome         | `dist-chrome`                   |
+
+Refer to the [guidelines for Chrome](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked) and the [steps for Firefox](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/) regarding the loading of an unpacked extension.
+
+Review the `package.json` file to find all available run scripts.
+
