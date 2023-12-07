@@ -2,6 +2,8 @@
 
 The Bulk URL Opener is a web extension that makes your online life a bit easier. It's perfect for anyone who needs to open a bunch of links at the same time.
 
+Install the extension via [Chrome Web Store](https://chromewebstore.google.com/detail/jclbjhflehefkfnibjdigljoaggchhcd) or [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/buo/).
+
 Here are the features:
 
 1. Open URLs:
